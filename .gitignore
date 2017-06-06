@@ -1,0 +1,10 @@
+cscope.*
+*~
+
+*.log
+*.out
+
+build/
+
+.cproject
+.project
