@@ -35,6 +35,8 @@ CLANG:=clang
 CLANGXX:=clang++
 LLVM_COMPILER:=$(CLANG)
 OPT:=opt
+LINK=llvm-link
+DIS=llvm-dis
 
 
 ##
