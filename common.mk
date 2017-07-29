@@ -64,8 +64,9 @@ STP=$(STP_DIR)/build/stp
 MINISAT_DIR=$(TOOLS)/minisat
 MINISAT=$(MINISAT_DIR)/build/libminisat.so
 
-KLEE_DIR=
-KLEE_BIN=$(KLEE_DIR)/Release+Asserts/bin
+KLEE_DIR=~/tau/slicing/klee/
+KLEE_BUILD_DIR=
+KLEE_BIN=$(KLEE_BUILD_DIR)/bin
 KLEE=$(KLEE_BIN)/klee
 
 $(STP): $(STP_DIR) $(MINISAT)
