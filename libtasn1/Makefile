@@ -25,5 +25,21 @@ $(TARGET): $(BC_DEPS)
 	$(OPT) -mem2reg $@ -o $@
 	$(DIS) $@
 
+run-klee: $(TARGET)
+	time $(KLEE) \
+	-exit-on-error-type=Ptr \
+	-libc=uclibc --posix-runtime \
+	-search=random-state \
+	test.bc 30
+
+run-slice: $(TARGET)
+	time $(KLEE) \
+	-exit-on-error-type=Ptr \
+	-libc=uclibc --posix-runtime \
+	-search=random-state \
+	-skip-functions=_asn1_set_value:872,_asn1_append_value,asn1_delete_structure \
+	-inline=memcpy,memset \
+	test.bc 30
+
 clean:
 	rm -rf $(DEPS) $(BC_DEPS) $(TARGET)
