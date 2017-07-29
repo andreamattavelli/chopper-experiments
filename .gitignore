@@ -3,6 +3,11 @@ cscope.*
 
 *.log
 *.out
+*.bc
+*.ll
+*.o
+*.swp
+*.swo
 
 build/
 
