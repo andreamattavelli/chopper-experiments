@@ -30,28 +30,21 @@ GIT:=git
 ##
 ## LLVM
 ##
-LLVM_CONFIG:=llvm-config
-CLANG:=clang
-CLANGXX:=clang++
+LLVM_BUILD_DIR:=
+LLVM_CONFIG:=$(LLVM_BUILD_DIR)/llvm-config
+CLANG:=$(LLVM_BUILD_DIR)/clang
+CLANGXX:=$(LLVM_BUILD_DIR)/clang++
 LLVM_COMPILER:=$(CLANG)
-OPT:=opt
-LINK=llvm-link
-DIS=llvm-dis
+OPT:=$(LLVM_BUILD_DIR)/opt
+LINK=$(LLVM_BUILD_DIR)/llvm-link
+DIS=$(LLVM_BUILD_DIR)/llvm-dis
 
 
 ##
 ## WLLVM
 ##
-WLLVMROOT=$(TOOLS)/whole-program-llvm
-WLLVM=$(WLLVMROOT)/wllvm
-EXTRACTBC=$(WLLVMROOT)/extract-bc
-
-$(WLLVMROOT):
-	$(GIT) clone https://github.com/travitch/whole-program-llvm $(WLLVMROOT)
-	cd $(WLLVMROOT); git checkout 3da8960dff43554ecf86e6b970d9862b1d3f9690
-
-$(WLLVM): $(WLLVMROOT)
-$(EXTRACTBC): $(WLLVMROOT)
+WLLVM=wllvm
+EXTRACTBC=extract-bc
 
 
 ##
@@ -65,7 +58,7 @@ MINISAT_DIR=$(TOOLS)/minisat
 MINISAT=$(MINISAT_DIR)/build/libminisat.so
 
 KLEE_DIR=
-KLEE_BIN=$(KLEE_DIR)/Release+Asserts/bin
+KLEE_BIN=$(KLEE_DIR)/bin
 KLEE=$(KLEE_BIN)/klee
 
 $(STP): $(STP_DIR) $(MINISAT)
