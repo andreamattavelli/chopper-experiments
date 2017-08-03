@@ -96,24 +96,19 @@ KFLAGS=--simplify-sym-indices \
 --allocate-determ-start-address=0x7ffef66f3000 \
 --max-sym-array-size=4096 \
 --disable-inlining \
---optimize \
 --use-forked-solver \
 --use-cex-cache \
---libc=klee \
+--libc=uclibc \
 --posix-runtime \
 --allow-external-sym-calls \
 --only-output-states-covering-new \
 --watchdog \
 --max-memory-inhibit=false \
---use-query-log=solver:kquery \
 --max-static-fork-pct=1 \
 --max-static-solve-pct=1 \
 --max-static-cpfork-pct=1 \
 --switch-type=internal \
 --dump-states-on-halt=false \
---debug-print-instructions=$(KINSTRFORMAT) \
---debug-compress-instructions \
---compress-query-log \
 --environ=/tmp/test.env \
 --run-in=/tmp/sandbox \
 --max-instruction-time=$(KINSTRTIMEOUT) \
@@ -123,18 +118,17 @@ KFLAGS=--simplify-sym-indices \
 $(KSLICE)
 
 
-###
 ### COMMON TARGETS
 ###
 .PHONY: prepare
 ## Create both the enviroment file and the sandbox directory
-prepare: $(ROOT)/case_studies/testing-env.sh $(ROOT)/case_studies/sandbox.tgz
+prepare: $(ROOT)/testing-env.sh $(ROOT)/sandbox.tgz
 	-rm -rf /tmp/* > /dev/null 2>&1
-	cd $(ROOT)/case_studies; \
+	cd $(ROOT); \
 	env -i /bin/bash -c '(source testing-env.sh; env >test.env)'; \
 	mv test.env /tmp/test.env; \
 	tar xzf sandbox.tgz; \
 	mv sandbox /tmp
 
-$(ROOT)/case_studies/sandbox.tgz:
-	cd  $(ROOT)/case_studies; wget -q http://www.doc.ic.ac.uk/~cristic/klee/sandbox.tgz
+$(ROOT)/sandbox.tgz:
+	cd $(ROOT); wget -q http://www.doc.ic.ac.uk/~cristic/klee/sandbox.tgz
