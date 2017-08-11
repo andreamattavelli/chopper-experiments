@@ -734,7 +734,7 @@ run-cse-test: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-test \
+	--output-dir=cse-out-test \
 	$(BC_DIR)/[.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -743,7 +743,7 @@ run-cse-base64: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-base64 \
+	--output-dir=cse-out-base64 \
 	$(BC_DIR)/base64.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -752,7 +752,7 @@ run-cse-basename: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-basename \
+	--output-dir=cse-out-basename \
 	$(BC_DIR)/basename.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -761,7 +761,7 @@ run-cse-cat: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-cat \
+	--output-dir=cse-out-cat \
 	$(BC_DIR)/cat.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -770,7 +770,7 @@ run-cse-chcon: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-chcon \
+	--output-dir=cse-out-chcon \
 	$(BC_DIR)/chcon.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -779,7 +779,7 @@ run-cse-chgrp: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-chgrp \
+	--output-dir=cse-out-chgrp \
 	$(BC_DIR)/chgrp.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -788,7 +788,7 @@ run-cse-chmod: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-chmod \
+	--output-dir=cse-out-chmod \
 	$(BC_DIR)/chmod.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -797,7 +797,7 @@ run-cse-chown: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-chown \
+	--output-dir=cse-out-chown \
 	$(BC_DIR)/chown.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -806,7 +806,7 @@ run-cse-chroot: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-chroot \
+	--output-dir=cse-out-chroot \
 	$(BC_DIR)/chroot.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -815,7 +815,7 @@ run-cse-cksum: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-cksum \
+	--output-dir=cse-out-cksum \
 	$(BC_DIR)/cksum.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -824,7 +824,7 @@ run-cse-comm: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-comm \
+	--output-dir=cse-out-comm \
 	$(BC_DIR)/comm.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -833,7 +833,7 @@ run-cse-cp: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-cp \
+	--output-dir=cse-out-cp \
 	$(BC_DIR)/cp.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -842,7 +842,7 @@ run-cse-csplit: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-csplit \
+	--output-dir=cse-out-csplit \
 	$(BC_DIR)/csplit.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -851,7 +851,7 @@ run-cse-cut: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-cut \
+	--output-dir=cse-out-cut \
 	$(BC_DIR)/cut.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -860,7 +860,7 @@ run-cse-dircolors: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-dircolors \
+	--output-dir=cse-out-dircolors \
 	$(BC_DIR)/dircolors.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -869,7 +869,7 @@ run-cse-dirname: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-dirname \
+	--output-dir=cse-out-dirname \
 	$(BC_DIR)/dirname.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -878,7 +878,7 @@ run-cse-du: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-du \
+	--output-dir=cse-out-du \
 	$(BC_DIR)/du.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -887,7 +887,7 @@ run-cse-echo: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-echo \
+	--output-dir=cse-out-echo \
 	$(BC_DIR)/echo.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -896,7 +896,7 @@ run-cse-env: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-env \
+	--output-dir=cse-out-env \
 	$(BC_DIR)/env.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -905,7 +905,7 @@ run-cse-expand: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-expand \
+	--output-dir=cse-out-expand \
 	$(BC_DIR)/expand.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -914,7 +914,7 @@ run-cse-expr: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-expr \
+	--output-dir=cse-out-expr \
 	$(BC_DIR)/expr.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -923,7 +923,7 @@ run-cse-factor: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-factor \
+	--output-dir=cse-out-factor \
 	$(BC_DIR)/factor.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -932,7 +932,7 @@ run-cse-false: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-\
+	--output-dir=cse-out-\
 	$(BC_DIR)/false.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -941,7 +941,7 @@ run-cse-fmt: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-fmt \
+	--output-dir=cse-out-fmt \
 	$(BC_DIR)/fmt.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -950,7 +950,7 @@ run-cse-fold: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-fold \
+	--output-dir=cse-out-fold \
 	$(BC_DIR)/fold.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -959,7 +959,7 @@ run-cse-ginstall: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-ginstall \
+	--output-dir=cse-out-ginstall \
 	$(BC_DIR)/ginstall.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -968,7 +968,7 @@ run-cse-head: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-head \
+	--output-dir=cse-out-head \
 	$(BC_DIR)/head.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -977,7 +977,7 @@ run-cse-hostid: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-hostid \
+	--output-dir=cse-out-hostid \
 	$(BC_DIR)/hostid.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -986,7 +986,7 @@ run-cse-hostname: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-hostname \
+	--output-dir=cse-out-hostname \
 	$(BC_DIR)/hostname.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -995,7 +995,7 @@ run-cse-id: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-id \
+	--output-dir=cse-out-id \
 	$(BC_DIR)/id.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1004,7 +1004,7 @@ run-cse-join: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-join \
+	--output-dir=cse-out-join \
 	$(BC_DIR)/join.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1013,7 +1013,7 @@ run-cse-kill: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-kill \
+	--output-dir=cse-out-kill \
 	$(BC_DIR)/kill.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1022,7 +1022,7 @@ run-cse-link: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-link \
+	--output-dir=cse-out-link \
 	$(BC_DIR)/link.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1031,7 +1031,7 @@ run-cse-ln: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-ln \
+	--output-dir=cse-out-ln \
 	$(BC_DIR)/ln.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1040,7 +1040,7 @@ run-cse-logname: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-logname \
+	--output-dir=cse-out-logname \
 	$(BC_DIR)/logname.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1049,7 +1049,7 @@ run-cse-ls: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-ls \
+	--output-dir=cse-out-ls \
 	$(BC_DIR)/ls.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1058,7 +1058,7 @@ run-cse-md5sum: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-md5sum \
+	--output-dir=cse-out-md5sum \
 	$(BC_DIR)/md5sum.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1067,7 +1067,7 @@ run-cse-mkdir: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-mkdir \
+	--output-dir=cse-out-mkdir \
 	$(BC_DIR)/mkdir.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1076,7 +1076,7 @@ run-cse-mkfifo: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-mkfifo \
+	--output-dir=cse-out-mkfifo \
 	$(BC_DIR)/mkfifo.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1085,7 +1085,7 @@ run-cse-mknod: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-mknod \
+	--output-dir=cse-out-mknod \
 	$(BC_DIR)/mknod.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1094,7 +1094,7 @@ run-cse-mv: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-mv \
+	--output-dir=cse-out-mv \
 	$(BC_DIR)/mv.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1103,7 +1103,7 @@ run-cse-nice: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-nice \
+	--output-dir=cse-out-nice \
 	$(BC_DIR)/nice.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1112,7 +1112,7 @@ run-cse-nl: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-nl \
+	--output-dir=cse-out-nl \
 	$(BC_DIR)/nl.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1121,7 +1121,7 @@ run-cse-nohup: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-nohup \
+	--output-dir=cse-out-nohup \
 	$(BC_DIR)/nohup.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1130,7 +1130,7 @@ run-cse-od: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-od \
+	--output-dir=cse-out-od \
 	$(BC_DIR)/od.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1139,7 +1139,7 @@ run-cse-paste: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-paste \
+	--output-dir=cse-out-paste \
 	$(BC_DIR)/paste.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1148,7 +1148,7 @@ run-cse-pathchk: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-pathchk \
+	--output-dir=cse-out-pathchk \
 	$(BC_DIR)/pathchk.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1157,7 +1157,7 @@ run-cse-pinky: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-pinky \
+	--output-dir=cse-out-pinky \
 	$(BC_DIR)/pinky.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1166,7 +1166,7 @@ run-cse-printenv: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-printenv \
+	--output-dir=cse-out-printenv \
 	$(BC_DIR)/printenv.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1175,7 +1175,7 @@ run-cse-printf: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-printf \
+	--output-dir=cse-out-printf \
 	$(BC_DIR)/printf.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1184,7 +1184,7 @@ run-cse-ptx: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-ptx \
+	--output-dir=cse-out-ptx \
 	$(BC_DIR)/ptx.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1193,7 +1193,7 @@ run-cse-pwd: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-pwd \
+	--output-dir=cse-out-pwd \
 	$(BC_DIR)/pwd.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1202,7 +1202,7 @@ run-cse-readlink: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-readlink \
+	--output-dir=cse-out-readlink \
 	$(BC_DIR)/readlink.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1211,7 +1211,7 @@ run-cse-rm: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-rm \
+	--output-dir=cse-out-rm \
 	$(BC_DIR)/rm.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1220,7 +1220,7 @@ run-cse-rmdir: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-rmdir \
+	--output-dir=cse-out-rmdir \
 	$(BC_DIR)/rmdir.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1229,7 +1229,7 @@ run-cse-runcon: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-runcon \
+	--output-dir=cse-out-runcon \
 	$(BC_DIR)/runcon.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1238,7 +1238,7 @@ run-cse-seq: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-seq \
+	--output-dir=cse-out-seq \
 	$(BC_DIR)/seq.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1247,7 +1247,7 @@ run-cse-setuidgid: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-setuidgid \
+	--output-dir=cse-out-setuidgid \
 	$(BC_DIR)/setuidgid.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1256,7 +1256,7 @@ run-cse-sleep: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-sleep \
+	--output-dir=cse-out-sleep \
 	$(BC_DIR)/sleep.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1265,7 +1265,7 @@ run-cse-sort: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-sort \
+	--output-dir=cse-out-sort \
 	$(BC_DIR)/sort.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1274,7 +1274,7 @@ run-cse-stty: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-stty \
+	--output-dir=cse-out-stty \
 	$(BC_DIR)/stty.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1283,7 +1283,7 @@ run-cse-sum: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-sum \
+	--output-dir=cse-out-sum \
 	$(BC_DIR)/sum.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1292,7 +1292,7 @@ run-cse-sync: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-sync \
+	--output-dir=cse-out-sync \
 	$(BC_DIR)/sync.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1301,7 +1301,7 @@ run-cse-tee: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-tee \
+	--output-dir=cse-out-tee \
 	$(BC_DIR)/tee.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1310,7 +1310,7 @@ run-cse-touch: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-touch \
+	--output-dir=cse-out-touch \
 	$(BC_DIR)/touch.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1319,7 +1319,7 @@ run-cse-tr: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-tr \
+	--output-dir=cse-out-tr \
 	$(BC_DIR)/tr.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1328,7 +1328,7 @@ run-cse-tsort: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-tsort \
+	--output-dir=cse-out-tsort \
 	$(BC_DIR)/tsort.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1337,7 +1337,7 @@ run-cse-tty: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-tty \
+	--output-dir=cse-out-tty \
 	$(BC_DIR)/tty.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1346,7 +1346,7 @@ run-cse-uname: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-uname \
+	--output-dir=cse-out-uname \
 	$(BC_DIR)/uname.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1355,7 +1355,7 @@ run-cse-unexpand: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-unexpand \
+	--output-dir=cse-out-unexpand \
 	$(BC_DIR)/unexpand.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1364,7 +1364,7 @@ run-cse-uniq: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-uniq \
+	--output-dir=cse-out-uniq \
 	$(BC_DIR)/uniq.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1373,7 +1373,7 @@ run-cse-unlink: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-unlink \
+	--output-dir=cse-out-unlink \
 	$(BC_DIR)/unlink.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1382,7 +1382,7 @@ run-cse-users: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-users \
+	--output-dir=cse-out-users \
 	$(BC_DIR)/users.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1391,7 +1391,7 @@ run-cse-wc: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-wc \
+	--output-dir=cse-out-wc \
 	$(BC_DIR)/wc.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1400,7 +1400,7 @@ run-cse-who: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-who \
+	--output-dir=cse-out-who \
 	$(BC_DIR)/who.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1409,7 +1409,7 @@ run-cse-whoami: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-whoami \
+	--output-dir=cse-out-whoami \
 	$(BC_DIR)/whoami.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
@@ -1418,7 +1418,7 @@ run-cse-yes: $(KLEE) prepare
 	-$(KLEE) --stats-write-interval=1500 --istats-write-interval=1500 \
 	$(KFLAGS) \
 	--search=random-state --search=nurs:covnew \
-	--output-dir=klee-out-yes \
+	--output-dir=cse-out-yes \
 	$(BC_DIR)/yes.bc \
 	--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout
 
