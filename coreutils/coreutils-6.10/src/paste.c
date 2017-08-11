@@ -438,6 +438,24 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   exit (status);
 }
 
+void parse_options(int* optc, int argc, char*** argv, char const** delim_arg) {
+	while ((*optc = getopt_long(argc, *argv, "d:s", longopts, NULL)) != -1) {
+		switch (*optc) {
+		case 'd':
+			/* Delimiter character(s). */
+			*delim_arg = (optarg[0] == '\0' ? "\\0" : optarg);
+			break;
+		case 's':
+			serial_merge = true;
+			break;
+		case_GETOPT_HELP_CHAR;
+		case_GETOPT_VERSION_CHAR(PROGRAM_NAME, AUTHORS);
+		default:
+		usage(EXIT_FAILURE);
+	}
+}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -456,27 +474,7 @@ main (int argc, char **argv)
   have_read_stdin = false;
   serial_merge = false;
 
-  while ((optc = getopt_long (argc, argv, "d:s", longopts, NULL)) != -1)
-    {
-      switch (optc)
-	{
-	case 'd':
-	  /* Delimiter character(s). */
-	  delim_arg = (optarg[0] == '\0' ? "\\0" : optarg);
-	  break;
-
-	case 's':
-	  serial_merge = true;
-	  break;
-
-	case_GETOPT_HELP_CHAR;
-
-	case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
-
-	default:
-	  usage (EXIT_FAILURE);
-	}
-    }
+  parse_options(&optc, argc, &argv, &delim_arg);
 
   if (optind == argc)
     argv[argc++] = "-";
