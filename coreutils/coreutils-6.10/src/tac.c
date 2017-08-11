@@ -559,6 +559,29 @@ tac_file (const char *filename)
   return ok;
 }
 
+void parse_options(int* optc, int argc, char*** argv) {
+	while ((*optc = getopt_long(argc, *argv, "brs:", longopts, NULL)) != -1) {
+		switch (*optc) {
+		case 'b':
+			separator_ends_record = false;
+			break;
+		case 'r':
+			sentinel_length = 0;
+			break;
+		case 's':
+			separator = optarg;
+			if (*separator == 0)
+				error(EXIT_FAILURE, 0, _("separator cannot be empty"));
+
+			break;
+		case_GETOPT_HELP_CHAR;
+		case_GETOPT_VERSION_CHAR(PROGRAM_NAME, AUTHORS);
+		default:
+		usage(EXIT_FAILURE);
+	}
+}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -584,27 +607,7 @@ main (int argc, char **argv)
   sentinel_length = 1;
   separator_ends_record = true;
 
-  while ((optc = getopt_long (argc, argv, "brs:", longopts, NULL)) != -1)
-    {
-      switch (optc)
-	{
-	case 'b':
-	  separator_ends_record = false;
-	  break;
-	case 'r':
-	  sentinel_length = 0;
-	  break;
-	case 's':
-	  separator = optarg;
-	  if (*separator == 0)
-	    error (EXIT_FAILURE, 0, _("separator cannot be empty"));
-	  break;
-	case_GETOPT_HELP_CHAR;
-	case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
-	default:
-	  usage (EXIT_FAILURE);
-	}
-    }
+  parse_options(&optc, argc, &argv);
 
   if (sentinel_length == 0)
     {
