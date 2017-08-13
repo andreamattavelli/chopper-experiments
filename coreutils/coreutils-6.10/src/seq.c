@@ -329,6 +329,39 @@ get_default_format (operand first, operand step, operand last)
   return "%Lg";
 }
 
+void parse_options(int argc, char** argv, int *optc,
+		const char** format_str) {
+	/* We have to handle negative numbers in the command line but this
+	 conflicts with the command line arguments.  So explicitly check first
+	 whether the next argument looks like a negative number.  */
+	while (optind < argc) {
+		if (argv[optind][0] == '-'
+				&& ((*optc = argv[optind][1]) == '.' || ISDIGIT(*optc))) {
+			/* means negative number */
+			break;
+		}
+		*optc = getopt_long(argc, argv, "+f:s:w", long_options, NULL);
+		if (*optc == -1)
+			break;
+
+		switch (*optc) {
+		case 'f':
+			*format_str = optarg;
+			break;
+		case 's':
+			separator = optarg;
+			break;
+		case 'w':
+			equal_width = true;
+			break;
+		case_GETOPT_HELP_CHAR;
+		case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
+		default:
+		usage(EXIT_FAILURE);
+	}
+}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -355,41 +388,7 @@ main (int argc, char **argv)
   /* We have to handle negative numbers in the command line but this
      conflicts with the command line arguments.  So explicitly check first
      whether the next argument looks like a negative number.  */
-  while (optind < argc)
-    {
-      if (argv[optind][0] == '-'
-	  && ((optc = argv[optind][1]) == '.' || ISDIGIT (optc)))
-	{
-	  /* means negative number */
-	  break;
-	}
-
-      optc = getopt_long (argc, argv, "+f:s:w", long_options, NULL);
-      if (optc == -1)
-	break;
-
-      switch (optc)
-	{
-	case 'f':
-	  format_str = optarg;
-	  break;
-
-	case 's':
-	  separator = optarg;
-	  break;
-
-	case 'w':
-	  equal_width = true;
-	  break;
-
-	case_GETOPT_HELP_CHAR;
-
-	case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
-
-	default:
-	  usage (EXIT_FAILURE);
-	}
-    }
+  parse_options(argc, argv, &optc, &format_str);
 
   if (argc - optind < 1)
     {
