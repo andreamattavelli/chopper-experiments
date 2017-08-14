@@ -53,7 +53,7 @@
 # define MALLOC_FUNC_CHECK 1
 # include <dmalloc.h>
 #endif
-
+
 /* Global definitions.  */
 
 /* FIXME: There are many unchecked integer overflows in this file,
@@ -1252,7 +1252,7 @@ print_field (BLOCK field)
 	putchar (*cursor);
     }
 }
-
+
 /* Formatting and actual output - planning routines.  */
 
 /*--------------------------------------------------------------------.
@@ -1614,7 +1614,7 @@ define_all_fields (OCCURS *occurs)
       SKIP_NON_WHITE (reference.end, right_context_end);
     }
 }
-
+
 /* Formatting and actual output - control routines.  */
 
 /*----------------------------------------------------------------------.
@@ -1864,7 +1864,7 @@ generate_all_output (void)
       occurs_cursor++;
     }
 }
-
+
 /* Option decoding and main program.  */
 
 /*------------------------------------------------------.
