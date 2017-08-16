@@ -1,9 +1,3 @@
-# Optimizing symbolic execution for arrays
-
-## Case studies
-1. binutils
-2. coreutils
-
 ### Configure
 Edit `case_studies/common.mk` with your environment
 ```makefile
@@ -22,9 +16,7 @@ CLANG:=clang
 CLANGXX:=clang++
 LLVM_COMPILER:=$(CLANG)
 OPT:=opt
-```
-In case you already have `wllvm`, it is possible to configure these variables:
-```makefile
+
 ##
 ## WLLVM
 ##
