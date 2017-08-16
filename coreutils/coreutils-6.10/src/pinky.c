@@ -546,7 +546,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   while ((optc = getopt_long (argc, argv, "sfwiqbhlp", longopts, NULL)) != -1)
     {

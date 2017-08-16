@@ -281,7 +281,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   change_times = 0;
   no_create = use_ref = false;

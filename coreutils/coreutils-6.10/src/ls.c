@@ -1146,7 +1146,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
 
   initialize_exit_failure (LS_FAILURE);
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
 #define N_ENTRIES(Array) (sizeof Array / sizeof *(Array))
   assert (N_ENTRIES (color_indicator) + 1 == N_ENTRIES (indicator_name));

@@ -814,7 +814,7 @@ main (int margc, char **margv)
   textdomain (PACKAGE);
 
   initialize_exit_failure (TEST_FAILURE);
-  atexit (close_stdout);
+  //atexit(close_stdout);
 #endif /* TEST_STANDALONE */
 
   argv = margv;

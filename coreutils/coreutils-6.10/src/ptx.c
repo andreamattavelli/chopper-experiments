@@ -2116,7 +2116,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
 #if HAVE_SETCHRCLASS
   setchrclass (NULL);
