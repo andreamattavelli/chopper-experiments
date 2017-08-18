@@ -202,7 +202,7 @@ static size_t quote_name (FILE *out, const char *name,
 			  struct quoting_options const *options,
 			  size_t *width);
 static char *make_link_name (char const *name, char const *linkname);
-static int decode_switches (int argc, char **argv);
+static void decode_switches (int *ret, int argc, char **argv);
 static bool file_ignored (char const *name);
 static uintmax_t gobble_file (char const *name, enum filetype type,
 			      ino_t inode, bool command_line_arg,
@@ -1155,7 +1155,7 @@ main (int argc, char **argv)
   print_dir_name = true;
   pending_dirs = NULL;
 
-  i = decode_switches (argc, argv);
+  decode_switches (&i, argc, argv);
 
   if (print_with_color)
     parse_ls_color ();
@@ -1371,8 +1371,8 @@ main (int argc, char **argv)
 /* Set all the option flags according to the switches specified.
    Return the index of the first non-option argument.  */
 
-static int
-decode_switches (int argc, char **argv)
+static void
+decode_switches (int *ret, int argc, char **argv)
 {
   char *time_style_option = NULL;
 
@@ -1870,7 +1870,7 @@ decode_switches (int argc, char **argv)
       while (strncmp (style, posix_prefix, sizeof posix_prefix - 1) == 0)
 	{
 	  if (! hard_locale (LC_TIME))
-	    return optind;
+	    *ret = optind;
 	  style += sizeof posix_prefix - 1;
 	}
 
@@ -1928,7 +1928,7 @@ decode_switches (int argc, char **argv)
 	  }
     }
 
-  return optind;
+  *ret = optind;
 }
 
 /* Parse a string as part of the LS_COLORS variable; this may involve

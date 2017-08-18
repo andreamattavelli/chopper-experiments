@@ -582,6 +582,40 @@ void parse_options(int* optc, int argc, char*** argv) {
 }
 }
 
+void parse_options2(const char* error_message, size_t half_buffer_size) {
+	if (sentinel_length == 0) {
+		compiled_separator.buffer = NULL;
+		compiled_separator.allocated = 0;
+		compiled_separator.fastmap = compiled_separator_fastmap;
+		compiled_separator.translate = NULL;
+		error_message = re_compile_pattern(separator, strlen(separator),
+				&compiled_separator);
+		if (error_message)
+			error(EXIT_FAILURE, 0, "%s", error_message);
+	} else
+		match_length = sentinel_length = strlen(separator);
+
+	read_size = INITIAL_READSIZE;
+	while (sentinel_length >= read_size / 2) {
+		if (SIZE_MAX / 2 < read_size)
+			xalloc_die();
+
+		read_size *= 2;
+	}
+	half_buffer_size = read_size + sentinel_length + 1;
+	G_buffer_size = 2 * half_buffer_size;
+	if (!(read_size < half_buffer_size && half_buffer_size < G_buffer_size))
+		xalloc_die();
+
+	G_buffer = xmalloc(G_buffer_size);
+	if (sentinel_length) {
+		strcpy(G_buffer, separator);
+		G_buffer += sentinel_length;
+	} else {
+		++G_buffer;
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -609,41 +643,7 @@ main (int argc, char **argv)
 
   parse_options(&optc, argc, &argv);
 
-  if (sentinel_length == 0)
-    {
-      compiled_separator.buffer = NULL;
-      compiled_separator.allocated = 0;
-      compiled_separator.fastmap = compiled_separator_fastmap;
-      compiled_separator.translate = NULL;
-      error_message = re_compile_pattern (separator, strlen (separator),
-					  &compiled_separator);
-      if (error_message)
-	error (EXIT_FAILURE, 0, "%s", error_message);
-    }
-  else
-    match_length = sentinel_length = strlen (separator);
-
-  read_size = INITIAL_READSIZE;
-  while (sentinel_length >= read_size / 2)
-    {
-      if (SIZE_MAX / 2 < read_size)
-	xalloc_die ();
-      read_size *= 2;
-    }
-  half_buffer_size = read_size + sentinel_length + 1;
-  G_buffer_size = 2 * half_buffer_size;
-  if (! (read_size < half_buffer_size && half_buffer_size < G_buffer_size))
-    xalloc_die ();
-  G_buffer = xmalloc (G_buffer_size);
-  if (sentinel_length)
-    {
-      strcpy (G_buffer, separator);
-      G_buffer += sentinel_length;
-    }
-  else
-    {
-      ++G_buffer;
-    }
+  parse_options2(error_message, half_buffer_size);
 
   file = (optind < argc
 	  ? (char const *const *) &argv[optind]

@@ -2721,6 +2721,219 @@ key_init (struct keyfield *key)
   return key;
 }
 
+void parse_options(int argc, char** argv, int c,
+		bool posixly_correct,
+		bool obsolete_usage,
+		struct keyfield* key_buf,
+		const char* s,
+		bool *mergeonly,
+		size_t* nfiles,
+		char* checkonly,
+		char** files,
+		struct keyfield* key,
+		struct keyfield* gkey,
+		const char* outfile,
+		char* random_source) {
+	for (;;) {
+		/* Parse an operand as a file after "--" was seen; or if
+		 pedantic and a file was seen, unless the POSIX version
+		 predates 1003.1-2001 and -c was not seen and the operand is
+		 "-o FILE" or "-oFILE".  */
+		int oi = -1;
+		if (c == -1 || (posixly_correct && *nfiles != 0 && !(obsolete_usage && !*checkonly && optind != argc && argv[optind][0] == '-' && argv[optind][1] == 'o' && (argv[optind][2] || optind + 1 != argc))) || ((c = getopt_long(argc, argv, short_options, long_options, &oi)) == -1)) {
+			if (argc <= optind)
+			break;
+
+			files[*nfiles++] = argv[optind++];
+		} else
+		switch (c) {
+			case 1:
+			key = NULL;
+			if (optarg[0] == '+') {
+				_Bool minus_pos_usage = (optind != argc && argv[optind][0] == '-' && ISDIGIT(argv[optind][1]));
+				obsolete_usage |= minus_pos_usage & ~posixly_correct;
+				if (obsolete_usage) {
+					/* Treat +POS1 [-POS2] as a key if possible; but silently
+					 treat an operand as a file if it is not a valid +POS1.  */
+					key = key_init(&*key_buf);
+					s = parse_field_count(optarg + 1, &key->sword, NULL);
+					if (s && *s == '.')
+					s = parse_field_count(s + 1, &key->schar, NULL);
+
+					if (!(key->sword | key->schar))
+					key->sword = SIZE_MAX;
+
+					if (!s || *set_ordering(s, key, bl_start))
+					key = NULL;
+					else {
+						if (minus_pos_usage) {
+							const char* optarg1 = argv[optind++];
+							s = parse_field_count(optarg1 + 1, &key->eword, N_("invalid number after `-'"));
+							if (*s == '.')
+							s = parse_field_count(s + 1, &key->echar, N_("invalid number after `.'"));
+
+							if (*set_ordering(s, key, bl_end))
+							badfieldspec(optarg1, N_("stray character in field spec"));
+						}
+						insertkey(key);
+					}
+				}
+			}
+			if (!key)
+			files[*nfiles++] = optarg;
+
+			break;
+			case 'b':
+			case 'd':
+			case 'f':
+			case 'g':
+			case 'i':
+			case 'M':
+			case 'n':
+			case 'r':
+			case 'R':
+			{
+				char str[2];
+				str[0] = c;
+				str[1] = '\0';
+				set_ordering(str, &*gkey, bl_both);
+			}break;
+			case CHECK_OPTION:
+			c = (optarg ? XARGMATCH ("--check", optarg, check_args, check_types) : 'c');
+			/* Fall through.  */
+			case 'c':
+			case 'C':
+			if (*checkonly && *checkonly != c)
+			incompatible_options("cC");
+
+			*checkonly = c;
+			break;
+			case COMPRESS_PROGRAM_OPTION:
+			if (compress_program && !STREQ(compress_program, optarg))
+			error(SORT_FAILURE, 0, _("multiple compress programs specified"));
+
+			compress_program = optarg;
+			break;
+			case 'k':
+			key = key_init(&*key_buf);
+			/* Get POS1. */
+			s = parse_field_count(optarg, &key->sword, N_("invalid number at field start"));
+			if (!key->sword--) {
+				/* Provoke with `sort -k0' */
+				badfieldspec(optarg, N_("field number is zero"));
+			}
+			if (*s == '.') {
+				s = parse_field_count(s + 1, &key->schar, N_("invalid number after `.'"));
+				if (!key->schar--) {
+					/* Provoke with `sort -k1.0' */
+					badfieldspec(optarg, N_("character offset is zero"));
+				}
+			}
+			if (!(key->sword | key->schar))
+			key->sword = SIZE_MAX;
+
+			s = set_ordering(s, key, bl_start);
+			if (*s != ',') {
+				key->eword = SIZE_MAX;
+				key->echar = 0;
+			} else {
+				/* Get POS2. */
+				s = parse_field_count(s + 1, &key->eword, N_("invalid number after `,'"));
+				if (!key->eword--) {
+					/* Provoke with `sort -k1,0' */
+					badfieldspec(optarg, N_("field number is zero"));
+				}
+				if (*s == '.')
+				s = parse_field_count(s + 1, &key->echar, N_("invalid number after `.'"));
+				else {
+					/* `-k 2,3' is equivalent to `+1 -3'.  */
+					key->eword++;
+				}
+				s = set_ordering(s, key, bl_end);
+			}
+			if (*s)
+			badfieldspec(optarg, N_("stray character in field spec"));
+
+			insertkey(key);
+			break;
+			case 'm':
+			*mergeonly = true;
+			break;
+			case 'o':
+			if (outfile && !STREQ(outfile, optarg))
+			error(SORT_FAILURE, 0, _("multiple output files specified"));
+
+			outfile = optarg;
+			break;
+			case RANDOM_SOURCE_OPTION:
+			if (random_source && !STREQ(random_source, optarg))
+			error(SORT_FAILURE, 0, _("multiple random sources specified"));
+
+			random_source = optarg;
+			break;
+			case 's':
+			stable = true;
+			break;
+			case 'S':
+			specify_sort_size(oi, c, optarg);
+			break;
+			case 't':
+			{
+				char newtab = optarg[0];
+				if (!newtab)
+				error(SORT_FAILURE, 0, _("empty tab"));
+
+				if (optarg[1]) {
+					if (STREQ(optarg, "\\0"))
+					newtab = '\0';
+					else {
+						/* Provoke with `sort -txx'.  Complain about
+						 "multi-character tab" instead of "multibyte tab", so
+						 that the diagnostic's wording does not need to be
+						 changed once multibyte characters are supported.  */
+						error(SORT_FAILURE, 0, _("multi-character tab %s"), quote(optarg));
+					}
+				}
+				if (tab != TAB_DEFAULT && tab != newtab)
+				error(SORT_FAILURE, 0, _("incompatible tabs"));
+
+				tab = newtab;
+			}break;
+			case 'T':
+			add_temp_dir(optarg);
+			break;
+			case 'u':
+			unique = true;
+			break;
+			case 'y':
+			/* Accept and ignore e.g. -y0 for compatibility with Solaris 2.x
+			 through Solaris 7.  It is also accepted by many non-Solaris
+			 "sort" implementations, e.g., AIX 5.2, HP-UX 11i v2, IRIX 6.5.
+			 -y is marked as obsolete starting with Solaris 8 (1999), but is
+			 still accepted as of Solaris 10 prerelease (2004).
+
+			 Solaris 2.5.1 "sort -y 100" reads the input file "100", but
+			 emulate Solaris 8 and 9 "sort -y 100" which ignores the "100",
+			 and which in general ignores the argument after "-y" if it
+			 consists entirely of digits (it can even be empty).  */
+			if (optarg == argv[optind - 1]) {
+				const char* p;
+				for (p = optarg;ISDIGIT(*p);p++)
+				continue;
+				optind -= (*p != '\0');
+			}
+			break;
+			case 'z':
+			eolchar = 0;
+			break;
+			case_GETOPT_HELP_CHAR;
+			case_GETOPT_VERSION_CHAR(PROGRAM_NAME, AUTHORS);
+			default:
+			usage(SORT_FAILURE);
+		}
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -2836,250 +3049,9 @@ main (int argc, char **argv)
 
   files = xnmalloc (argc, sizeof *files);
 
-  for (;;)
-    {
-      /* Parse an operand as a file after "--" was seen; or if
-	 pedantic and a file was seen, unless the POSIX version
-	 predates 1003.1-2001 and -c was not seen and the operand is
-	 "-o FILE" or "-oFILE".  */
-      int oi = -1;
-
-      if (c == -1
-	  || (posixly_correct && nfiles != 0
-	      && ! (obsolete_usage
-		    && ! checkonly
-		    && optind != argc
-		    && argv[optind][0] == '-' && argv[optind][1] == 'o'
-		    && (argv[optind][2] || optind + 1 != argc)))
-	  || ((c = getopt_long (argc, argv, short_options,
-				long_options, &oi))
-	      == -1))
-	{
-	  if (argc <= optind)
-	    break;
-	  files[nfiles++] = argv[optind++];
-	}
-      else switch (c)
-	{
-	case 1:
-	  key = NULL;
-	  if (optarg[0] == '+')
-	    {
-	      bool minus_pos_usage = (optind != argc && argv[optind][0] == '-'
-				      && ISDIGIT (argv[optind][1]));
-	      obsolete_usage |= minus_pos_usage & ~posixly_correct;
-	      if (obsolete_usage)
-		{
-		  /* Treat +POS1 [-POS2] as a key if possible; but silently
-		     treat an operand as a file if it is not a valid +POS1.  */
-		  key = key_init (&key_buf);
-		  s = parse_field_count (optarg + 1, &key->sword, NULL);
-		  if (s && *s == '.')
-		    s = parse_field_count (s + 1, &key->schar, NULL);
-		  if (! (key->sword | key->schar))
-		    key->sword = SIZE_MAX;
-		  if (! s || *set_ordering (s, key, bl_start))
-		    key = NULL;
-		  else
-		    {
-		      if (minus_pos_usage)
-			{
-			  char const *optarg1 = argv[optind++];
-			  s = parse_field_count (optarg1 + 1, &key->eword,
-					     N_("invalid number after `-'"));
-			  if (*s == '.')
-			    s = parse_field_count (s + 1, &key->echar,
-					       N_("invalid number after `.'"));
-			  if (*set_ordering (s, key, bl_end))
-			    badfieldspec (optarg1,
-				      N_("stray character in field spec"));
-			}
-		      insertkey (key);
-		    }
-		}
-	    }
-	  if (! key)
-	    files[nfiles++] = optarg;
-	  break;
-
-	case 'b':
-	case 'd':
-	case 'f':
-	case 'g':
-	case 'i':
-	case 'M':
-	case 'n':
-	case 'r':
-	case 'R':
-	  {
-	    char str[2];
-	    str[0] = c;
-	    str[1] = '\0';
-	    set_ordering (str, &gkey, bl_both);
-	  }
-	  break;
-
-	case CHECK_OPTION:
-	  c = (optarg
-	       ? XARGMATCH ("--check", optarg, check_args, check_types)
-	       : 'c');
-	  /* Fall through.  */
-	case 'c':
-	case 'C':
-	  if (checkonly && checkonly != c)
-	    incompatible_options ("cC");
-	  checkonly = c;
-	  break;
-
-	case COMPRESS_PROGRAM_OPTION:
-	  if (compress_program && !STREQ (compress_program, optarg))
-	    error (SORT_FAILURE, 0, _("multiple compress programs specified"));
-	  compress_program = optarg;
-	  break;
-
-	case 'k':
-	  key = key_init (&key_buf);
-
-	  /* Get POS1. */
-	  s = parse_field_count (optarg, &key->sword,
-				 N_("invalid number at field start"));
-	  if (! key->sword--)
-	    {
-	      /* Provoke with `sort -k0' */
-	      badfieldspec (optarg, N_("field number is zero"));
-	    }
-	  if (*s == '.')
-	    {
-	      s = parse_field_count (s + 1, &key->schar,
-				     N_("invalid number after `.'"));
-	      if (! key->schar--)
-		{
-		  /* Provoke with `sort -k1.0' */
-		  badfieldspec (optarg, N_("character offset is zero"));
-		}
-	    }
-	  if (! (key->sword | key->schar))
-	    key->sword = SIZE_MAX;
-	  s = set_ordering (s, key, bl_start);
-	  if (*s != ',')
-	    {
-	      key->eword = SIZE_MAX;
-	      key->echar = 0;
-	    }
-	  else
-	    {
-	      /* Get POS2. */
-	      s = parse_field_count (s + 1, &key->eword,
-				     N_("invalid number after `,'"));
-	      if (! key->eword--)
-		{
-		  /* Provoke with `sort -k1,0' */
-		  badfieldspec (optarg, N_("field number is zero"));
-		}
-	      if (*s == '.')
-		s = parse_field_count (s + 1, &key->echar,
-				       N_("invalid number after `.'"));
-	      else
-		{
-		  /* `-k 2,3' is equivalent to `+1 -3'.  */
-		  key->eword++;
-		}
-	      s = set_ordering (s, key, bl_end);
-	    }
-	  if (*s)
-	    badfieldspec (optarg, N_("stray character in field spec"));
-	  insertkey (key);
-	  break;
-
-	case 'm':
-	  mergeonly = true;
-	  break;
-
-	case 'o':
-	  if (outfile && !STREQ (outfile, optarg))
-	    error (SORT_FAILURE, 0, _("multiple output files specified"));
-	  outfile = optarg;
-	  break;
-
-	case RANDOM_SOURCE_OPTION:
-	  if (random_source && !STREQ (random_source, optarg))
-	    error (SORT_FAILURE, 0, _("multiple random sources specified"));
-	  random_source = optarg;
-	  break;
-
-	case 's':
-	  stable = true;
-	  break;
-
-	case 'S':
-	  specify_sort_size (oi, c, optarg);
-	  break;
-
-	case 't':
-	  {
-	    char newtab = optarg[0];
-	    if (! newtab)
-	      error (SORT_FAILURE, 0, _("empty tab"));
-	    if (optarg[1])
-	      {
-		if (STREQ (optarg, "\\0"))
-		  newtab = '\0';
-		else
-		  {
-		    /* Provoke with `sort -txx'.  Complain about
-		       "multi-character tab" instead of "multibyte tab", so
-		       that the diagnostic's wording does not need to be
-		       changed once multibyte characters are supported.  */
-		    error (SORT_FAILURE, 0, _("multi-character tab %s"),
-			   quote (optarg));
-		  }
-	      }
-	    if (tab != TAB_DEFAULT && tab != newtab)
-	      error (SORT_FAILURE, 0, _("incompatible tabs"));
-	    tab = newtab;
-	  }
-	  break;
-
-	case 'T':
-	  add_temp_dir (optarg);
-	  break;
-
-	case 'u':
-	  unique = true;
-	  break;
-
-	case 'y':
-	  /* Accept and ignore e.g. -y0 for compatibility with Solaris 2.x
-	     through Solaris 7.  It is also accepted by many non-Solaris
-	     "sort" implementations, e.g., AIX 5.2, HP-UX 11i v2, IRIX 6.5.
-	     -y is marked as obsolete starting with Solaris 8 (1999), but is
-	     still accepted as of Solaris 10 prerelease (2004).
-
-	     Solaris 2.5.1 "sort -y 100" reads the input file "100", but
-	     emulate Solaris 8 and 9 "sort -y 100" which ignores the "100",
-	     and which in general ignores the argument after "-y" if it
-	     consists entirely of digits (it can even be empty).  */
-	  if (optarg == argv[optind - 1])
-	    {
-	      char const *p;
-	      for (p = optarg; ISDIGIT (*p); p++)
-		continue;
-	      optind -= (*p != '\0');
-	    }
-	  break;
-
-	case 'z':
-	  eolchar = 0;
-	  break;
-
-	case_GETOPT_HELP_CHAR;
-
-	case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
-
-	default:
-	  usage (SORT_FAILURE);
-	}
-    }
+  parse_options(argc, argv, c, posixly_correct, obsolete_usage,
+			 &key_buf, s, &mergeonly, &nfiles,
+			&checkonly, files, key, &gkey, outfile, random_source);
 
   /* Inheritance of global options to individual keys. */
   for (key = keylist; key; key = key->next)
