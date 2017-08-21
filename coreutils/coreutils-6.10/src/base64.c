@@ -255,7 +255,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  ////atexit(close_stdout);
 
   while ((opt = getopt_long (argc, argv, "dqiw:", long_options, NULL)) != -1)
     switch (opt)

@@ -422,7 +422,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
   hard_LC_COLLATE = hard_locale (LC_COLLATE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   skip_chars = 0;
   skip_fields = 0;

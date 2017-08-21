@@ -194,7 +194,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
 
   initialize_exit_failure (EXPR_FAILURE);
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
 		      usage, AUTHORS, (char const *) NULL);
