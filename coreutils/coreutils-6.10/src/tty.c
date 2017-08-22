@@ -91,7 +91,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
 
   initialize_exit_failure (TTY_WRITE_ERROR);
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   silent = false;
 

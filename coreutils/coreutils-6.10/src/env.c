@@ -147,7 +147,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
 
   initialize_exit_failure (EXIT_FAILURE);
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   while ((optc = getopt_long (argc, argv, "+iu:", longopts, NULL)) != -1)
     {

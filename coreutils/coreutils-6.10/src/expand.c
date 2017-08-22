@@ -375,7 +375,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   have_read_stdin = false;
   exit_status = EXIT_SUCCESS;

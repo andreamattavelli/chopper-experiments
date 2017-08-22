@@ -572,7 +572,7 @@ main (int argc, char **argv)
      case_GETOPT_HELP_CHAR or case_GETOPT_VERSION_CHAR code.
      Normally STDOUT_FILENO is used rather than stdout, so
      close_stdout does nothing.  */
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   /* Parse command line options.  */
 

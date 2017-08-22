@@ -234,7 +234,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
   hard_LC_COLLATE = hard_locale (LC_COLLATE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   only_file_1 = true;
   only_file_2 = true;

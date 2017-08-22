@@ -1639,7 +1639,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
 
   /* Arrange to close stdout if parse_long_options exits.  */
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   page_size = getpagesize ();
 

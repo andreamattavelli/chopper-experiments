@@ -63,7 +63,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   /* Recognize --help or --version only if it's the only command-line
      argument.  */

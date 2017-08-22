@@ -578,7 +578,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  atexit (close_stdout);
+  //atexit(close_stdout);
 
   print_lines = print_words = print_chars = print_bytes = false;
   print_linelength = false;
