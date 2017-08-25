@@ -30,7 +30,7 @@ GIT:=git
 ##
 ## LLVM
 ##
-LLVM_BUILD_DIR:=/home/david/tau/llvm-3.4.obj/bin
+LLVM_BUILD_DIR:=
 LLVM_CONFIG:=$(LLVM_BUILD_DIR)/llvm-config
 CLANG:=$(LLVM_BUILD_DIR)/clang
 CLANGXX:=$(LLVM_BUILD_DIR)/clang++
@@ -57,8 +57,8 @@ STP=$(STP_DIR)/build/stp
 MINISAT_DIR=$(TOOLS)/minisat
 MINISAT=$(MINISAT_DIR)/build/libminisat.so
 
-KLEE_SRC_DIR=/home/david/tau/slicing/klee
-KLEE_DIR=/home/david/tau/slicing/klee_build
+KLEE_SRC_DIR=
+KLEE_DIR=
 KLEE_BIN=$(KLEE_DIR)/bin
 KLEE=$(KLEE_BIN)/klee
 
