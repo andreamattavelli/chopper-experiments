@@ -14,7 +14,7 @@ main(int argc, char *argv[]) {
     bool done = false;
     unsigned char *buf = NULL;
 
-    if (argc != 2) {
+    if (argc < 2) {
         return 1;
     }
 
