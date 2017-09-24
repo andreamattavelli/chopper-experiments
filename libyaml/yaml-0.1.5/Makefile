@@ -13,7 +13,7 @@ CC=gcc
 	$(CC) $(CFLAGS) -fprofile-arcs -ftest-coverage $< -o $@
 
 %.bc: %.c
-	$(CLANG) $(CFLAGS) $< -o $@
+	$(CLANG) $(CFLAGS) -DTEST_SYMBOLIC $< -o $@
 
 SOURCES=$(shell ls $(SRC_PATH)/src/*.c) main.c
 DEPS=$(patsubst %.c,%.o,$(SOURCES))

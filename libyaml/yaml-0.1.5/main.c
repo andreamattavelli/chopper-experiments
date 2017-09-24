@@ -27,7 +27,9 @@ main(int argc, char *argv[]) {
         fread(buf, 1, size, f);
         fclose(f);
     } else {
+#ifdef TEST_SYMBOLIC
         klee_make_symbolic(buf, size, "buf");
+#endif
     }
     buf[size - 1] = 0;
 
