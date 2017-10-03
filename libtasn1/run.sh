@@ -1,69 +1,43 @@
 #!/bin/sh
 
-##########################################
-cd CVE-2012-1569
+run-experiment()
+{
+echo "* Running experiment $1"
+cd $1
 make
 make all-klee
 
 make all-cse
-mkdir cse-no-searcher
-mv cse-run-* cse-no-searcher
-mv run-cse-* cse-no-searcher
+terminate-cse cse-no-searcher
 
-make KSLICE="-split-search" all-cse
-mkdir cse-split-searcher
-mv cse-run-* cse-split-searcher
-mv run-cse-* cse-split-searcher
+make KSLICE="-split-search -split-ratio=10" all-cse
+terminate-cse cse-split-searcher-10
 
-cd ..
+make KSLICE="-split-search -split-ratio=20" all-cse
+terminate-cse cse-split-searcher-20
 
-##########################################
-cd CVE-2014-3467
-make
-make all-klee
+make KSLICE="-split-search -split-ratio=30" all-cse
+terminate-cse cse-split-searcher-30
 
-make all-cse
-mkdir cse-no-searcher
-mv cse-run-* cse-no-searcher
-mv run-cse-* cse-no-searcher
+make KSLICE="-split-search -split-ratio=40" all-cse
+terminate-cse cse-split-searcher-40
 
-make KSLICE="-split-search" all-cse
-mkdir cse-split-searcher
-mv cse-run-* cse-split-searcher
-mv run-cse-* cse-split-searcher
+make KSLICE="-split-search -split-ratio=50" all-cse
+terminate-cse cse-split-searcher-50
 
 cd ..
+}
 
-##########################################
-cd CVE-2015-2806
-make
-make all-klee
+terminate-cse()
+{
+mkdir $1
+mv cse-run-* $1
+mv run-cse-* $1
+}
 
-make all-cse
-mkdir cse-no-searcher
-mv cse-run-* cse-no-searcher
-mv run-cse-* cse-no-searcher
 
-make KSLICE="-split-search" all-cse
-mkdir cse-split-searcher
-mv cse-run-* cse-split-searcher
-mv run-cse-* cse-split-searcher
-
-cd ..
-
-##########################################
-cd CVE-2015-3622
-make
-make all-klee
-
-make all-cse
-mkdir cse-no-searcher
-mv cse-run-* cse-no-searcher
-mv run-cse-* cse-no-searcher
-
-make KSLICE="-split-search" all-cse
-mkdir cse-split-searcher
-mv cse-run-* cse-split-searcher
-mv run-cse-* cse-split-searcher
-
-cd ..
+## MAIN
+run-experiment CVE-2012-1569
+run-experiment CVE-2014-3467
+run-experiment CVE-2015-2806
+run-experiment CVE-2015-3622
