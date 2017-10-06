@@ -86,16 +86,16 @@ $(MINISAT_DIR):
 ###
 ### EXPERIMENT CONFIGURATION
 ###
-KTIMEOUT:=4000.
+KTIMEOUT:=86400.
 KINSTRTIMEOUT:=200.
 KSLICE=
 KFLAGS=--simplify-sym-indices \
 --output-module \
---max-memory=4095 \
+--max-memory=8095 \
 --allocate-determ=true \
---allocate-determ-size=4095 \
+--allocate-determ-size=8095 \
 --allocate-determ-start-address=0x7ffef66f3000 \
---max-sym-array-size=4096 \
+--max-sym-array-size=2048 \
 --disable-inlining \
 --use-forked-solver \
 --use-cex-cache \
