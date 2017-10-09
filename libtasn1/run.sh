@@ -4,12 +4,17 @@ run_experiment()
 {
 echo "* Running experiment $1"
 cd $1
+# Compiling case study
 make
+
+# Running KLEE
 make all-klee
 
+# Running CSE without CSE-crafted searcher
 make all-cse
 terminate_cse cse-no-searcher
 
+# Running CSE with CSE-crafted searcher
 make KSLICE="-split-search -split-ratio=10" all-cse
 terminate_cse cse-split-searcher-10
 
@@ -24,6 +29,38 @@ terminate_cse cse-split-searcher-40
 
 make KSLICE="-split-search -split-ratio=50" all-cse
 terminate_cse cse-split-searcher-50
+
+# Running CSE with CSE-optimized searcher
+make KSLICE="-recovery-search=random-path -split-ratio=10" all-cse
+terminate_cse cse-recovery-searcher-rp-10
+
+make KSLICE="-recovery-search=random-path -split-ratio=20" all-cse
+terminate_cse cse-recovery-searcher-rp-20
+
+make KSLICE="-recovery-search=random-path -split-ratio=30" all-cse
+terminate_cse cse-recovery-searcher-rp-30
+
+make KSLICE="-recovery-search=random-path -split-ratio=40" all-cse
+terminate_cse cse-recovery-searcher-rp-40
+
+make KSLICE="-recovery-search=random-path -split-ratio=50" all-cse
+terminate_cse cse-recovery-searcher-rp-50
+
+make KSLICE="-recovery-search=dfs -split-ratio=10" all-cse
+terminate_cse cse-recovery-searcher-dfs-10
+
+make KSLICE="-recovery-search=dfs -split-ratio=20" all-cse
+terminate_cse cse-recovery-searcher-dfs-20
+
+make KSLICE="-recovery-search=dfs -split-ratio=30" all-cse
+terminate_cse cse-recovery-searcher-dfs-30
+
+make KSLICE="-recovery-search=dfs -split-ratio=40" all-cse
+terminate_cse cse-recovery-searcher-dfs-40
+
+make KSLICE="-recovery-search=dfs -split-ratio=50" all-cse
+terminate_cse cse-recovery-searcher-dfs-50
+
 
 cd ..
 }
