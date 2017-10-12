@@ -5,10 +5,10 @@
 print_single_result()
 {
     paste -d ',' \
-    <(echo "$2") \
-    <(grep Elapsed $1-*/*-coverage/info | cut -d ' ' -f2) \
-    <(grep Elapsed $1-*/*-dfs/info | cut -d ' ' -f2) \
-    <(grep Elapsed $1-*/*-random/info | cut -d ' ' -f2)
+    <( echo "$2" ) \
+    <( grep Elapsed $1*/*-coverage/info | cut -d ' ' -f2 ) \
+    <( grep Elapsed $1*/*-dfs/info | cut -d ' ' -f2 ) \
+    <( grep Elapsed $1*/*-random/info | cut -d ' ' -f2 )
 }
 
 # Parameters: 1- directory, 2- label
@@ -42,6 +42,6 @@ print_results()
 
 ## MAIN
 print_results CVE-2012-1569 > CVE-2012-1569.csv
-print_results CVE-2014-3467
+print_results CVE-2014-3467 > CVE-2014-3467.csv
 print_results CVE-2015-2806 > CVE-2015-2806.csv
 print_results CVE-2015-3622 > CVE-2015-3622.csv
