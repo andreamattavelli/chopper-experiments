@@ -4,7 +4,11 @@
 # Returns on STDOUT: label,coverage,dfs,random
 print_single_result()
 {
-    paste -d ',' <(echo "$2") <(grep Elapsed $1-*/*-coverage/info | cut -d ' ' -f2) <(grep Elapsed $1-*/*-dfs/info | cut -d ' ' -f2) <(grep Elapsed $1-*/*-random/info | cut -d ' ' -f2)
+    paste -d ',' \
+    <(echo "$2") \
+    <(grep Elapsed $1-*/*-coverage/info | cut -d ' ' -f2) \
+    <(grep Elapsed $1-*/*-dfs/info | cut -d ' ' -f2) \
+    <(grep Elapsed $1-*/*-random/info | cut -d ' ' -f2)
 }
 
 # Parameters: 1- directory, 2- label
@@ -18,9 +22,15 @@ print_multiple_result()
 	  <( grep Elapsed $1-*/*-random/info | cut -d ' ' -f2 )
 }
 
+print_header()
+{
+    echo "EXPERIMENT,COVERAGE,DFS,RANDOM"
+}
+
 print_results()
 {
     cd $1
+    print_header
     print_single_result   "klee" "KLEE"
     print_single_result   "cse-no-searcher" "STANDARD"
     print_multiple_result "cse-split-searcher" "SPLIT-SEARCH"
