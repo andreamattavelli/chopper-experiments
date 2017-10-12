@@ -9,6 +9,7 @@ make
 
 # Running KLEE
 make all-klee
+terminate_klee klee
 
 # Running CSE without CSE-crafted searcher
 make all-cse
@@ -61,8 +62,14 @@ terminate_cse cse-recovery-searcher-dfs-40
 make KSLICE="-recovery-search=dfs -split-ratio=50" all-cse
 terminate_cse cse-recovery-searcher-dfs-50
 
-
 cd ..
+}
+
+terminate_klee()
+{
+mkdir $1
+mv klee-run-* $1
+mv run-klee-* $1
 }
 
 terminate_cse()
