@@ -1,14 +1,8 @@
-# This scirpt runs on Windows (on the IDA machine)
-
 import sys
 import os
 import glob
 import subprocess
 import threading
-
-
-KTEST_TOOL="/home/david/tau/slicing/klee/tools/ktest-tool/ktest-tool"
-g_terminate = False
 
 
 class KTestPool(object):
@@ -55,10 +49,12 @@ class CoverageThread(threading.Thread):
         self.ktest_pool = ktest_pool
 
     def run(self):
-        global g_terminate
+        # add environment variable
+        env = os.environ.copy()
+        env["GCOV_PREFIX"] = "./thread_%d" % (self.identifier, )
 
         devnull = open("/dev/null", "w")
-        while not g_terminate:
+        while True:
             ktest_file = self.ktest_pool.get_module()
             if ktest_file is None:
                 break
@@ -80,7 +76,8 @@ class CoverageThread(threading.Thread):
                     self.ktest_pool.binary,
                     self.ktest_pool.arg,
                     ktest_data_file,
-                ]
+                ],
+                env=env
             )
             p.wait()
 
