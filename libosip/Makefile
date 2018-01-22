@@ -1,4 +1,4 @@
-KLEE_PATH=/home/david/tau/klee/klee/
+KLEE_PATH=/home/user/tau/cse/klee
 SRC_PATH=./libosip2-4.0.0/
 
 INCLUDES=-I $(KLEE_PATH)/include -I $(SRC_PATH)/include
