@@ -6,7 +6,7 @@ klee \
     -simplify-sym-indices \
     -libc=uclibc \
     -search=nurs:covnew \
-    -skip-functions=osip_util_replace_all_lws \
+    -skip-functions=osip_util_replace_all_lws,osip_clrncpy:81  \
     -split-search \
     ./main.bc 10
 
