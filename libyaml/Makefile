@@ -32,4 +32,4 @@ $(TARGET): $(DEPS)
 all: $(BC_TARGET)
 
 clean:
-	rm -rf $(BC_DEPS) $(DEPS) $(BC_TARGET) $(TARGET)
+	rm -rf $(BC_DEPS) $(DEPS) $(BC_TARGET) $(TARGET) *.bc *.ll *.gcno
