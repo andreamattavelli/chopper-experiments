@@ -7,7 +7,7 @@ DEFINES=
 COVERAGE_CFLAGS=-fprofile-arcs -ftest-coverage
 COVERAGE_LDFLAGS=-lgcov --coverage
 
-CFLAGS=$(INCLUDES) $(DEFINES) 
+CFLAGS=$(INCLUDES) $(DEFINES) -g
 LDFLAGS=
 CC=gcc
 OPT=opt
