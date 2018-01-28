@@ -1,4 +1,4 @@
-include ../../common.mk
+include ../common.mk
 
 SRC_PATH=./yaml-0.1.5
 
