@@ -23,7 +23,7 @@ klee \
     --recovery-search=dfs \
     -skip-functions=parse_args,yy_get_next_buffer,yyrestart \
     --inline=memcpy \
-    bc/bc.bc A --sym-files 1 64 --sym-stdin 8 --sym-stdout
+    build/bc/bc.bc A --sym-files 1 64 --sym-stdin 8 --sym-stdout
 
 klee \
     --stats-write-interval=1000 \
@@ -45,5 +45,5 @@ klee \
     --max-time=3600. \
     --posix-runtime \
     --search=nurs:covnew \
-    bc/bc.bc A --sym-files 1 64 --sym-stdin 8 --sym-stdout
+    build/bc/bc.bc A --sym-files 1 64 --sym-stdin 8 --sym-stdout
 
