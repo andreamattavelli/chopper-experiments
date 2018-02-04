@@ -6,7 +6,7 @@ time klee \
     -libc=uclibc \
     -simplify-sym-indices \
     -search=nurs:covnew \
-    -recovery-search=dfs \
+    -split-search \
     -skip-functions=yaml_parser_update_buffer:864,yaml_parser_fetch_stream_start:870 \
     final.bc 64
 
