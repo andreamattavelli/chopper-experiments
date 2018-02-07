@@ -10,7 +10,7 @@ klee \
     -search=nurs:covnew \
     -skip-functions=osip_util_replace_all_lws,osip_clrncpy:81  \
     -split-search \
-    --inline=memmove \
+    -inline=memmove \
     ./main.bc 10
 
 klee \
