@@ -1,49 +1,33 @@
 #!/bin/bash
 
-klee \
-    --stats-write-interval=1000 \
-    --istats-write-interval=1000 \
-    --simplify-sym-indices \
-    --max-memory=4095 \
-    --max-sym-array-size=4096 \
-    --disable-inlining \
-    --use-cex-cache \
-    --libc=uclibc \
-    --allow-external-sym-calls \
-    --only-output-states-covering-new \
-    --watchdog \
-    --switch-type=internal \
-    --environ=/tmp/test.env \
-    --run-in=/tmp/sandbox \
-    --max-instruction-time=100. \
-    --max-solver-time=30. \
-    --max-time=3600. \
-    --posix-runtime \
-    --search=nurs:covnew \
-    --recovery-search=dfs \
-    -skip-functions=parse_args,yy_get_next_buffer,yyrestart \
-    --inline=memcpy \
-    build/bc/bc.bc A --sym-files 1 64 --sym-stdin 8 --sym-stdout
+ulimit -s unlimited
 
 klee \
-    --stats-write-interval=1000 \
-    --istats-write-interval=1000 \
     --simplify-sym-indices \
-    --max-memory=4095 \
-    --max-sym-array-size=4096 \
-    --disable-inlining \
-    --use-cex-cache \
-    --libc=uclibc \
+    --max-time=3600 \
+    --max-memory=4096 \
     --allow-external-sym-calls \
     --only-output-states-covering-new \
-    --watchdog \
-    --switch-type=internal \
+    --libc=uclibc \
     --environ=/tmp/test.env \
     --run-in=/tmp/sandbox \
-    --max-instruction-time=100. \
-    --max-solver-time=30. \
-    --max-time=3600. \
     --posix-runtime \
     --search=nurs:covnew \
-    build/bc/bc.bc A --sym-files 1 64 --sym-stdin 8 --sym-stdout
+    build/bc/bc.bc --sym-args 0 8 16 --sym-files 1 64 --sym-stdin 8 --sym-stdout
+
+klee \
+    --simplify-sym-indices \
+    --max-time=3600 \
+    --max-memory=4096 \
+    --allow-external-sym-calls \
+    --only-output-states-covering-new \
+    --libc=uclibc \
+    --environ=/tmp/test.env \
+    --run-in=/tmp/sandbox \
+    --posix-runtime \
+    --search=nurs:covnew \
+    --split-search \
+    --skip-functions=parse_args,yy_get_next_buffer,yyrestart \
+    --inline=memcpy \
+    build/bc/bc.bc --sym-args 0 8 16 --sym-files 1 64 --sym-stdin 64 --sym-stdout
 
