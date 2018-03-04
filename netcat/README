@@ -1,8 +1,0 @@
-In this benchmark, there is a bug at line netcat.c:1364.
-The error occurs when read() at line 1357 returns -1, and then passed to memcpy at line 1364.
-
-In this example I want to skip the call for res_init() at line 1319 and EVERYTHING after the line 1389.
-At this point I can't do the latter, because we skip stuff on the function level.
-
-Once I am able to do it, I can run something like:
-klee -libc=uclibc --posix-runtime -skip-functions=res_init test.bc --sym-args 0 2 4 --sym-stdin 10 --fd-fail
