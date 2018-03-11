@@ -1,7 +1,8 @@
-KLEE_PATH=/home/user/tau/cse/klee
+include ../common.mk
+
 SRC_PATH=./libosip2-4.0.0/
 
-INCLUDES=-I $(KLEE_PATH)/include -I $(SRC_PATH)/include
+INCLUDES=-I $(KLEE_SRC_DIR)/include -I $(SRC_PATH)/include
 DEFINES=
 
 COVERAGE_CFLAGS=-fprofile-arcs -ftest-coverage
@@ -10,17 +11,13 @@ COVERAGE_LDFLAGS=-lgcov --coverage
 CFLAGS=$(INCLUDES) $(DEFINES) -g
 LDFLAGS=
 CC=gcc
-OPT=opt
-LLVM_DIS=llvm-dis
-WLLVM=wllvm
-EXTRACT_BC=extract-bc
 
 TARGET=test-driver
 TARGET_GCOV=test-driver-gcov
 BC_TARGET=test-driver.bc
 
 %.o: %.c
-	$(WLLVM) -c $(CFLAGS) -DTEST_SYMBOLIC $< -o $@
+	LLVM_COMPILER_PATH=$(LLVM_BUILD_DIR) LLVM_COMPILER=clang $(WLLVM) -c $(CFLAGS) -DTEST_SYMBOLIC $< -o $@
 
 %.gcov.o: %.c
 	$(CC) -c $(CFLAGS) $(COVERAGE_CFLAGS) $< -o $@
@@ -34,19 +31,18 @@ osip_archive_gcov:
 
 osip_archive:
 	rm -rf build && mkdir build
-	cd build; ../libosip2-4.0.0/configure CC=$(WLLVM)
-	make -C build -j4
+	cd build; LLVM_COMPILER_PATH=$(LLVM_BUILD_DIR) LLVM_COMPILER=clang ../libosip2-4.0.0/configure CC=$(WLLVM)
+	LLVM_COMPILER_PATH=$(LLVM_BUILD_DIR) LLVM_COMPILER=clang make -C build -j4
 
 $(TARGET_GCOV): main.gcov.o osip_archive_gcov
 	$(CC) $(CFLAGS) $(LDFLAGS) $(COVERAGE_CFLAGS) $(COVERAGE_LDFLAGS) $< ./build/src/osipparser2/.libs/libosipparser2.a -o $@
 
 $(TARGET): main.o osip_archive
-	$(WLLVM) $(CFLAGS) $(LDFLAGS) $< ./build/src/osipparser2/.libs/libosipparser2.a -o $@
+	LLVM_COMPILER_PATH=$(LLVM_BUILD_DIR) LLVM_COMPILER=clang $(WLLVM) $(CFLAGS) $(LDFLAGS) $< ./build/src/osipparser2/.libs/libosipparser2.a -o $@
 
 $(BC_TARGET): $(TARGET) osip_archive
-	$(EXTRACT_BC) $< -o $@
+	LLVM_COMPILER_PATH=$(LLVM_BUILD_DIR) LLVM_COMPILER=clang $(EXTRACTBC) $< -o $@
 	$(OPT) -mem2reg $@ -o $@
-	$(LLVM_DIS) $@
 
 clean:
 	rm -rf $(TARGET) $(TARGET_GCOV) $(BC_TARGET) *.o *.bc *.ll ./build
