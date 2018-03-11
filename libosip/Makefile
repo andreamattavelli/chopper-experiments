@@ -15,9 +15,9 @@ LLVM_DIS=llvm-dis
 WLLVM=wllvm
 EXTRACT_BC=extract-bc
 
-TARGET=main
-TARGET_GCOV=main_gcov
-BC_TARGET=main.bc
+TARGET=test-driver
+TARGET_GCOV=test-driver-gcov
+BC_TARGET=test-driver.bc
 
 %.o: %.c
 	$(WLLVM) -c $(CFLAGS) -DTEST_SYMBOLIC $< -o $@
