@@ -18,8 +18,8 @@ CC=gcc
 SOURCES=$(shell ls $(SRC_PATH)/src/*.c) main.c
 DEPS=$(patsubst %.c,%.o,$(SOURCES))
 BC_DEPS=$(patsubst %.c,%.bc,$(SOURCES))
-BC_TARGET=final.bc
-TARGET=test
+BC_TARGET=test-driver.bc
+TARGET=test-driver-gcov
 
 $(BC_TARGET): $(BC_DEPS)
 	$(LINK) $^ -o $@
