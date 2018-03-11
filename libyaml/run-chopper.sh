@@ -3,6 +3,7 @@
 ulimit -s unlimited
 
 time klee \
+    --output-dir=out-chopper \
     -max-time=3600 \
     -max-memory=4096 \
     -libc=uclibc \

@@ -3,6 +3,7 @@
 ulimit -s unlimited
 
 time klee \
+    --output-dir=out-klee \
     -max-time=3600 \
     -max-memory=4096 \
     -libc=uclibc \
