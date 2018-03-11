@@ -1,15 +1,14 @@
 #!/bin/bash
 
-if [ $# -ne 3 ]; then
-    echo "Usage: <ktest_tool> <klee_out_dir> <input_size>"
+if [ $# -ne 1 ]; then
+    echo "Usage: <klee_out_dir>"
     exit 1
 fi
 
-KTEST_TOOL=$1
-KLEE_OUT_DIR=$2
-INPUT_SIZE=$3
+KLEE_OUT_DIR=$1
+INPUT_SIZE=64
 
 for f in ./${KLEE_OUT_DIR}/*.ktest; do
-    ${KTEST_TOOL} -d "$f.data" $f
-    ./test ${INPUT_SIZE} "$f.data"
+    ktest-tool -d "$f.data" $f
+    ./test-driver-gcov ${INPUT_SIZE} "$f.data"
 done
