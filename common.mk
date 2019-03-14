@@ -88,7 +88,7 @@ $(MINISAT_DIR):
 ###
 KTIMEOUT:=86400.
 KINSTRTIMEOUT:=200.
-KSLICE=
+KSLICE=--split-search
 KFLAGS=--simplify-sym-indices \
 --output-module \
 --max-memory=8095 \
